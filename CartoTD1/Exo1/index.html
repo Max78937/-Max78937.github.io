@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : Géolocalisation</title>
+</head>
+<body>
+    <p id="demo">Cliquer sur le bouton pour voir vos coordonnées:</p>
+    <button onclick="getLocation()">Afficher les coordonnées</button>
+    <script>
+    var x=document.getElementById("demo");
+    function getLocation()
+      {
+      if (navigator.geolocation)
+        {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        }
+      else{x.innerHTML="Geolocation n’est pas prise en charge par ce navigateur.";}
+      }
+    function showPosition(position)
+      {
+      x.innerHTML="Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Altitude: " + position.coords.altitude;    
+      }
+    </script>
+</body>
+</html>
