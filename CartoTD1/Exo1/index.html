@@ -35,6 +35,7 @@
 
             document.getElementById("lat").innerHTML = `Latitude : ${crd.latitude}`;
             document.getElementById("lon").innerHTML = `Longitude : ${crd.longitude}`;
+            document.getElementById("pre").innerHTML = `Précision : ${crd.accuracy}`;
             document.getElementById("vit").innerHTML = `Vitesse : ${vitesse}`;
             document.getElementById("tim").innerHTML = `Date : ${date}`;
         }
@@ -98,6 +99,7 @@
 
     <h2 id="lat"></h2>
     <h2 id="lon"></h2>
+    <h2 id="pre"></h2>
     <h2 id="vit"></h2>
     <h2 id="tim"></h2>
     <br>
