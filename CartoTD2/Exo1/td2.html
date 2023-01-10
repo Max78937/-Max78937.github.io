@@ -110,6 +110,7 @@
 
         function error(err) {
             console.warn(`ERREUR (${err.code}): ${err.message}`);
+            document.getElementById("Erreur").innerHTML = `Temps Expiré, merci de recharger : ${err.message}`;
         }
 
         navigator.geolocation.getCurrentPosition(success, error, options);
@@ -119,7 +120,7 @@
 
 
     </script>
-
+    <h2 id="Erreur"></h2>
     <h2 id="DistanceMarseille"></h2>
 </body>
 
