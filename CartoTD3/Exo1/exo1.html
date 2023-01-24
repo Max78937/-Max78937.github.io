@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8" />
+<title> TD3 Exercice 1 </title>
+<link rel="stylesheet" href="./style2.css">
+
+</head>
+
+<body>
+    <h1>TD3 Exercice 1</h1>
+
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById('mycanvas');
+            var image = document.getElementById('paysage');
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(image,10,120);
+            ctx.fillStyle = 'orange';
+            ctx.fillRect(200,450,100,100);
+            ctx.fillStyle = 'brown';
+            ctx.fillRect(250, 500, 25, 50);
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.moveTo(250, 400);
+            ctx.lineTo(180, 450);
+            ctx.lineTo(320, 450);
+            ctx.closePath();
+            ctx.fill();
+            ctx.beginPath()
+            ctx.arc(70, 200, 30, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+
+        
+        }
+    </script>
+
+
+    <img id="paysage" width="1" height="1" src="./paysageprairie.jpg">
+    <canvas id="mycanvas" width="1080" height="720"></canvas>
+
+
+    <svg  width="210mm" height="297mm" viewBox="0 0 210 297" version="1.1" id="svg5"
+        <g inkscape:label="Calque 1" inkscape:groupmode="layer" id="layer1">
+            <rect style="fill:#56a323;fill-rule:evenodd;stroke-width:0.264583" id="rect35" width="210.25601"
+                height="52.474758" x="0.35697117" y="148.14302" />
+            <rect style="fill:#1465dd;stroke-width:0.264583" id="rect103" width="209.89902" height="92.098549"
+                x="0.71394235" y="56.044472" />
+            <ellipse style="fill:#ffd42a;stroke-width:0.264583" id="path149" cx="185.26802"
+                cy="81.924881" rx="14.992788" ry="14.814302" onclick="soleil" />
+            <rect style="fill:#f0c401;stroke-width:0.264583" id="rect477" width="70.323318" height="51.403847"
+                x="18.692837" y="127.08173" />
+            <path sodipodi:type="star" style="fill:#ff0000" id="path523" inkscape:flatsided="false" sodipodi:sides="3"
+                sodipodi:cx="6.7459116" sodipodi:cy="468.16626" sodipodi:r1="163.25105" sodipodi:r2="81.625526"
+                sodipodi:arg1="-1.5707963" sodipodi:arg2="-0.52359878" inkscape:rounded="0" inkscape:randomized="0"
+                d="m 6.745916,304.91521 70.689775,122.43829 70.689779,122.43829 -141.379558,0 -141.379562,-10e-6 70.689782,-122.43828 z"
+                transform="matrix(0.31725601,0,0,0.1423641,50.946737,50.239003)"
+                inkscape:transform-center-y="-5.8102753" />
+            <rect style="fill:#aa4400;stroke-width:0.264583" id="rect865" width="16.777643" height="24.63101"
+                x="33.198315" y="154.21153" />
+        </g>
+            </svg>
+</body>
+
+</html>
+
+
+<html>
+<body>
+
+    
+ 
+</body>
+</html>
