@@ -32,34 +32,39 @@
             maximumAge: 0
         };
 
-                    // Initialiser Three.js
-            var scene = new THREE.Scene();
-            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            var renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
+                
+                var scene = new THREE.Scene();
+                var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+                var renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                document.body.appendChild(renderer.domElement);
 
-            // Créer un objet pour représenter l'objet 3D
-            var object = new THREE.Mesh(new THREE.BoxGeometry(50, 50, 50), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-            scene.add(object);
+                // Cube
+                var geometry = new THREE.BoxGeometry(1, 1, 1);
+                var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+                var cube = new THREE.Mesh(geometry, material);
+                scene.add(cube);
 
-            // Configurer la caméra pour suivre l'objet
-            camera.position.z = 100;
-            camera.lookAt(object.position);
+                camera.position.z = 5;
 
-            // Obtenir les données d'accélération du smartphone
-            window.addEventListener('deviceorientation', function(event) {
-            object.rotation.x = event.beta * Math.PI / 180;
-            object.rotation.y = -event.gamma * Math.PI / 180;
-            });
+                
+                window.addEventListener("deviceorientation", function(event) {
+                var x = event.beta;  // Inclinaison en x
+                var y = event.gamma; // Inclinaison en y
 
-            // Mettre à jour la scène à chaque frame
-            var render = function() {
-            requestAnimationFrame(render);
-            renderer.render(scene, camera);
-            };
+                
+                cube.position.x = x / 10;
+                cube.position.y = y / 10;
+                });
 
-            render();
+                
+                var render = function() {
+                requestAnimationFrame(render);
+                renderer.render(scene, camera);
+                };
+
+                render();
+
 
 		</script>
 	</body>
