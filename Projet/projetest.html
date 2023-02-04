@@ -32,40 +32,69 @@
             maximumAge: 0
         };
         
-        //Test
         var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         
-        var geometry = new THREE.CylinderGeometry(1, 1, 0.2, 32);
-        var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-        var compass = new THREE.Mesh(geometry, material);
-        compass.rotation.x = Math.PI / 2;
-        scene.add(compass);
+        var paddleWidth = 100;
+        var paddleHeight = 20;
+        var paddleDepth = 20;
+        var paddleGeometry = new THREE.BoxGeometry(paddleWidth, paddleHeight, paddleDepth);
+        var paddleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        var paddle = new THREE.Mesh(paddleGeometry, paddleMaterial);
+        paddle.position.set(0, -(window.innerHeight / 2) + paddleHeight, 0);
+        scene.add(paddle);
 
-        camera.position.z = 5;
+        
+        var ballRadius = 20;
+        var ballSegments = 32;
+        var ballGeometry = new THREE.SphereGeometry(ballRadius, ballSegments, ballSegments);
+        var ballMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        var ball = new THREE.Mesh(ballGeometry, ballMaterial);
+        ball.position.set(0, paddle.position.y + paddleHeight + ballRadius, 0);
+        scene.add(ball);
 
         
-        navigator.geolocation.getCurrentPosition(function(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-        console.log(position.coords.latitude, position.coords.long);
+        var ballSpeed = 200;
+        var ballDirection = new THREE.Vector3(1, 1, 0);
+
         
-        
-        var angle = 360 - lon;
-        
-        
-        compass.rotation.z = angle * (Math.PI / 180);
+        document.addEventListener('touchmove', function (event) {
+        paddle.position.x = (event.touches[0].clientX / window.innerWidth) * (window.innerWidth - paddleWidth / 2) - (window.innerWidth / 2) + paddleWidth / 2;
         });
 
         
-        var render = function() {
+        var render = function () {
         requestAnimationFrame(render);
+
+        
+        ball.position.x += ballDirection.x * ballSpeed * (1 / 60);
+        ball.position.y += ballDirection.y * ballSpeed * (1 / 60);
+
+        
+        if (ball.position.y < paddle.position.y + paddleHeight / 2 &&
+        ball.position.y > paddle.position.y - paddleHeight / 2 &&
+        ball.position.x < paddle.position.x + paddleWidth / 2 &&
+        ball.position.x > paddle.position.x - paddleWidth / 2) {
+        ballDirection.y = -ballDirection.y;
+        }
+
+        
+        if (ball.position.x > window.innerWidth / 2 - ballRadius ||
+        ball.position.x < -window.innerWidth / 2 + ballRadius) {
+        ballDirection.x = -ballDirection.x;
+        }
+        if (ball.position.y > window.innerHeight / 2 - ballRadius ||
+        ball.position.y < -window.innerHeight/ 2 + ballRadius) {
+                ballDirection.y = -ballDirection.y;
+        }
+
         renderer.render(scene, camera);
         };
+
         render();
 
 
