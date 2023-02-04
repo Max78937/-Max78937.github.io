@@ -31,39 +31,42 @@
             timeout: 5000,
             maximumAge: 0
         };
-                //Test
-                
-                var scene = new THREE.Scene();
-                var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-                var renderer = new THREE.WebGLRenderer();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                document.body.appendChild(renderer.domElement);
+        
+        //Test
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-                // Cube
-                var geometry = new THREE.BoxGeometry(1, 1, 1);
-                var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-                var cube = new THREE.Mesh(geometry, material);
-                scene.add(cube);
+        
+        var geometry = new THREE.CylinderGeometry(1, 1, 0.2, 32);
+        var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+        var compass = new THREE.Mesh(geometry, material);
+        compass.rotation.x = Math.PI / 2;
+        scene.add(compass);
 
-                camera.position.z = 5;
+        camera.position.z = 5;
 
-                
-                window.addEventListener("deviceorientation", function(event) {
-                var x = event.beta;  // Inclinaison en x
-                var y = event.gamma; // Inclinaison en y
+        
+        navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        console.log(position.coords.latitude, position.coords.long);
+        
+        
+        var angle = 360 - lon;
+        
+        
+        compass.rotation.z = angle * (Math.PI / 180);
+        });
 
-                
-                cube.position.x = x / 10;
-                cube.position.y = y / 10;
-                });
-
-                
-                var render = function() {
-                requestAnimationFrame(render);
-                renderer.render(scene, camera);
-                };
-
-                render();
+        
+        var render = function() {
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+        };
+        render();
 
 
 		</script>
